@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Who was your provider?" icon-name="standard:service_territory">
+        <div class="slds-m-around_medium">
+            <lightning-radio-group
+                name="Providers"
+                label="Please choose a provider."
+                options={providers}
+                type="radio"
+                value={provider}
+                onchange={handleProviderChange}
+            >
+            </lightning-radio-group>
+        </div>
+    </lightning-card>
+</template>

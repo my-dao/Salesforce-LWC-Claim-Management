@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Confirm your bank details">
+        <div class="slds-m-around_medium">
+            <p>This is the bank account where this and future benefits will be paid.</p>
+            <div class="slds-grid slds-wrap slds-grid_align-spread slds-m-vertical_medium">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-6">
+                    <div class="slds-box slds-theme_default">
+                        <p class="slds-text-title">Bank</p>
+                        <p class="slds-m-bottom_x-small">{paymentDetails.bank}</p>
+                        <p class="slds-text-title">BSB</p>
+                        <p class="slds-m-bottom_x-small">{paymentDetails.bsb}</p>
+                        <p class="slds-text-title">Account number</p>
+                        <p>{paymentDetails.accountNum}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-m-top_small">
+                <lightning-icon icon-name="utility:lock" alternative-text="Secure" size="small"></lightning-icon>
+                <span class="slds-m-left_xx-small">This transaction is secure and private</span>
+                <lightning-helptext content="All transactions are secure and encrypted."></lightning-helptext>
+            </div>
+        </div>
+    </lightning-card>
+</template>

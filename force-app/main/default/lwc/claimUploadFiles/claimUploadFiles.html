@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Upload Proof of Expenses" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <lightning-input
+                type="file"
+                accept=".xlsx, .xls, .csv, .png, .doc, .docx, .pdf"
+                label="Attachment"
+                onchange={openfileUpload}
+            ></lightning-input>
+        </div>
+        <!-- List uploaded files with delete option -->
+        <div class="slds-m-around_small">
+            <template if:true={attachments}>
+                <ul class="slds-m-top_small">
+                    <template for:each={attachments} for:item="file" for:index="index">
+                        <li key={file.filename} class="slds-grid slds-grid_vertical-align-center slds-m-around_x-small">
+                            {file.filename}
+                            <lightning-button-icon
+                                icon-name="utility:delete"
+                                variant="bare"
+                                alternative-text="Delete"
+                                title="Delete"
+                                onclick={deleteFile}
+                                data-index={index}
+                                class="slds-m-left_small"
+                            ></lightning-button-icon>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+        </div>
+    </lightning-card>
+</template>

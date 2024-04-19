@@ -1,0 +1,121 @@
+<template>
+    <lightning-card title="Make a Claim" icon-name="standard:entitlement_process" class="slds-m-top_large">
+        <div class="slds-m-around_medium">
+            <lightning-progress-indicator current-step={currentStep} type="path">
+                <lightning-progress-step label="Upload receipts" value="1"></lightning-progress-step>
+                <lightning-progress-step label="Select provider" value="2"></lightning-progress-step>
+                <lightning-progress-step label="Treatment details" value="3"></lightning-progress-step>
+                <lightning-progress-step label="Payment" value="4"></lightning-progress-step>
+                <lightning-progress-step label="Review" value="5"></lightning-progress-step>
+            </lightning-progress-indicator>
+            <div style="min-height: 15px"></div>
+            <!-- Render the file uploader component conditionally, based on the current step -->
+            <template if:true={isStepOne}>
+                <c-claim-upload-files
+                    initial-attachments={claim.attachments}
+                    onuploadfile={handleUploadFile}
+                ></c-claim-upload-files>
+            </template>
+            <template if:true={isStepTwo}>
+                <c-claim-select-provider
+                    provider={claim.provider}
+                    onselectprovider={handleSelectProvider}
+                ></c-claim-select-provider>
+            </template>
+            <template if:true={isStepThree}>
+                <c-claim-treatment-details
+                    initial-items={claim.treatmentItems}
+                    onsavetreatmentitem={handleSaveTreatmentItem}
+                >
+                </c-claim-treatment-details>
+            </template>
+            <template if:true={isStepFour}>
+                <c-claim-payment onsendpaymentdetails={handleSendPaymentDatails}> </c-claim-payment>
+            </template>
+            <template if:true={isStepFive}>
+                <lightning-card title="Review your claim">
+                    <div class="slds-m-around_medium">
+                        <p>Before submitting your claim, check all your information is correct.</p>
+
+                        <div class="slds-m-top_medium">
+                            <h3 class="slds-text-title_bold">Provider</h3>
+                            <p>{claim.provider}</p>
+                        </div>
+
+                        <div class="slds-m-top_medium">
+                            <h3 class="slds-text-title_bold">Treatment details</h3>
+                            <p>Treatment</p>
+                            <template for:each={claim.treatmentItems} for:item="treatmentItem">
+                                <div key={treatmentItem.itemNumber}>
+                                    <p>
+                                        {treatmentItem.itemName} For {treatmentItem.treatmentFor} administered on
+                                        {treatmentItem.formattedDate} with a cost of ${treatmentItem.treatmentCost}
+                                    </p>
+                                    <p style="border-top: 2px dashed #bbb; width: 40%"></p>
+                                </div>
+                            </template>
+
+                            <p>
+                                <b><i>Total cost: ${totalCost}</i></b>
+                            </p>
+                        </div>
+
+                        <div class="slds-m-top_medium">
+                            <h3 class="slds-text-title_bold">Proof of expenses</h3>
+                            <template for:each={claim.attachments} for:item="attachment">
+                                <div key={attachment.filename}>
+                                    <p>{attachment.filename}</p>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div class="slds-m-top_medium">
+                            <h3 class="slds-text-title_bold">Bank account details</h3>
+                            <p>Bank address: {claim.paymentDetails.bank}</p>
+                            <p>BSB: {claim.paymentDetails.bsb}</p>
+                            <p>Account Number: {claim.paymentDetails.accountNum}</p>
+                        </div>
+                    </div>
+                </lightning-card>
+            </template>
+
+            <div class="slds-grid slds-grid_align-end slds-m-top_medium">
+                <lightning-button
+                    variant="neutral"
+                    label="Cancel"
+                    title="Cancel"
+                    onclick={handleCancel}
+                    class="slds-m-left_small"
+                >
+                </lightning-button>
+                <lightning-button
+                    variant="neutral"
+                    label="Previous"
+                    title="Previous"
+                    onclick={handlePrevious}
+                    class="slds-m-left_small"
+                    disabled={isFirstStep}
+                >
+                </lightning-button>
+                <lightning-button
+                    variant="brand"
+                    label="Next"
+                    title="Next"
+                    onclick={handleNext}
+                    class="slds-m-left_small"
+                    disabled={isLastStep}
+                >
+                </lightning-button>
+                <lightning-button
+                    variant="brand"
+                    label="Submit"
+                    title="Submit"
+                    onclick={handleSubmit}
+                    class="slds-m-left_small"
+                    disabled={isNotLastStep}
+                >
+                </lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>Claims_App</members>
+		<name>CustomTab</name>
+	</types>
+	<types>
+		<members>Claims_App_Page</members>
+		<name>FlexiPage</name>
+	</types>
+	<types>
+		<members>claimApp</members>
+		<members>claimBase</members>
+		<members>claimOptions</members>
+		<members>claimPayment</members>
+		<members>claimProcess</members>
+		<members>claimSelectProvider</members>
+		<members>claimTreatmentDetails</members>
+		<members>claimUploadFiles</members>
+		<name>LightningComponentBundle</name>
+	</types>
+	<version>58.0</version>
+</Package>

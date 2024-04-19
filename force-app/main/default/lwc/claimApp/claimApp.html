@@ -1,0 +1,46 @@
+<template>
+    <template if:true={showClaimOptions}>
+        <c-claim-options onmakeclaim={handleMakeClaim}></c-claim-options>
+        <div style="min-height: 20px"></div>
+        <template if:true={claims}>
+            <lightning-card title="My Claims" icon-name="standard:entitlement_template">
+                <lightning-datatable
+                    key-field="claimer"
+                    data={claims}
+                    columns={columns}
+                    hide-checkbox-column
+                    slds-cell-wrap
+                >
+                </lightning-datatable>
+            </lightning-card>
+        </template>
+        <template if:false={claims}>
+            <h4 style="margin-left: 10px">You have no active claims.</h4>
+        </template>
+    </template>
+
+    <template if:true={showClaimProcess}>
+        <c-claim-process oncancel={handleCancelProcess} onsubmitclaim={handleSubmitClaim}></c-claim-process>
+    </template>
+
+    <template if:true={claimSubmitted}>
+        <div style="display: flex; justify-content: center; align-items: center; text-align: center">
+            <div style="width: 70%; margin-top: 15px">
+                <p>
+                    Thank you for submitting your claim. Our team is now reviewing the details, and we aim to update you
+                    on the status or any next steps within 3 business days.
+                </p>
+                <p>
+                    Should you have any questions or need further assistance in the meantime, please don't hesitate to
+                    contact us. Your patience and trust in us are greatly appreciated.
+                </p>
+                <div style="min-height: 20px"></div>
+                <lightning-button
+                    class="slds-m-top_large"
+                    label="View My Claims"
+                    onclick={handleReset}
+                ></lightning-button>
+            </div>
+        </div>
+    </template>
+</template>
